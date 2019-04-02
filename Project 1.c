@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-
+char encryptRotate(char str, int index);
 int main()
 {
-    int taskNumber;
+   // int taskNumber;
 
 //User friendly task selection menu system
 
-    printf("Please select a task(1, 3, 4, 5, 6 or 7): \n"); // Asks user which task they would like performed
+    /*printf("Please select a task(1, 3, 4, 5, 6 or 7): \n"); // Asks user which task they would like performed
     printf("(1) Encryption with a rotation cipher given plain text and key\n");
     printf("(2) Decryption with a rotation cipher given cipher text and key\n");
     printf("(3) Encryption with a substitution ciper given plain text and key\n");
@@ -30,7 +30,7 @@ int main()
         case 6: Task6(); break;
         case 7: Task7(); break;
         default: printf("Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6 or 7\n", taskNumber);
-    }
+    }*/
     
 
 
@@ -42,12 +42,10 @@ Task 1: Encryption with a rotation cipher given plain text and key
 - Encrypt text
 - Print encrypted text*/
 
-    int rotateKey = 5; /*This is the key of encryption - the number of letters by which the alphabet is rotated to
-                         calculate the substitution (hardcoded at the moment without scanf)*/
-    char str[1024]; //This initialises the user's input as a string. Should it be a constant??
-    int index; //This is the ASCII value of a letter a given time
-   
-   
+    //int rotateKey = 5; /*This is the key of encryption - the number of letters by which the alphabet is rotated to
+                         //calculate the substitution (temporarily hardcoded to 5 at the moment without scanf)*/
+    char str[1024] = "Hello"; //This initialises the user's input as a string. Should it be a constant?? Temporarily hardcoded
+
     printf("Please enter a message to encrypt:\n");
     //scanf("%s\n", str); // Note: NO & REQUIRED! The user's message is entered as a string
     //Note: Need to use uppercase letters only, and all white space, punctuation and numerals need to be ignored.
@@ -55,13 +53,23 @@ Task 1: Encryption with a rotation cipher given plain text and key
     printf("Please enter a key to shift the letters by: ");
     //scanf("%d, &rotateKey");
     
-    for(index = 65; (index < 100 && index != \0); index++)
+    printf("Encrypted message is: ");
+    printf("%s", str);
+    
+}
+
+    char encryptRotate(char str, int index) //Index is the ASCII value of a letter a given time
     {
-        str[index] = (str[index] + rotateKey)*(% 26); // Encryption calculation
-        printf("Encrypted message is: %s\n", str[]);
+        int rotateKey = 5;
+    
+        for(index = 65; (index < 100 && index != 0); index++)
+        {
+            str[index] = (str[index] + rotateKey); // Encryption calculation
+            return str;
+        }
+    
     }
-    
-    
+
 
 
 
@@ -82,5 +90,3 @@ Task 7: Decryption of an unseen block of cipher text on marking day
 
  */
 
-
-}
