@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+
 int main()
 {
     int taskNumber;
@@ -19,6 +20,18 @@ int main()
     //scanf("%d", &taskNumber);  This reads the user's input. NB: scanf() doesn't work right now!
     // Write switch statements to ues input to select task.
     
+    switch(taskNumber)
+    {
+        case 1: Task1(); break;
+        case 2: Task2(); break;
+        case 3: Task3(); break;
+        case 4: Task4(); break;
+        case 5: Task5(); break;
+        case 6: Task6(); break;
+        case 7: Task7(); break;
+        default: printf("Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6 or 7\n", taskNumber);
+    }
+    
 
 
 /*Project Planning:
@@ -27,18 +40,26 @@ Task 1: Encryption with a rotation cipher given plain text and key
 - Input message to encrypt
 - Input key
 - Encrypt text
-- Print encrypted text*\ 
+- Print encrypted text*/
 
-   int rotateKey; //This is the key of encryption - the number of letters by which the alphabet is rotated to calculate the substitution
-   const char MESSAGETOROTATE[1024]; //This initialises the user's input as being constant
+    int rotateKey = 5; /*This is the key of encryption - the number of letters by which the alphabet is rotated to
+                         calculate the substitution (hardcoded at the moment without scanf)*/
+    char str[1024]; //This initialises the user's input as a string. Should it be a constant??
+    int index; //This is the ASCII value of a letter a given time
    
    
     printf("Please enter a message to encrypt:\n");
     //scanf("%s\n", str); // Note: NO & REQUIRED! The user's message is entered as a string
     //Note: Need to use uppercase letters only, and all white space, punctuation and numerals need to be ignored.
     
-    printf("Please enter an encryption key: ");
+    printf("Please enter a key to shift the letters by: ");
     //scanf("%d, &rotateKey");
+    
+    for(index = 65; (index < 100 && index != \0); index++)
+    {
+        str[index] = (str[index] + rotateKey)*(% 26); // Encryption calculation
+        printf("Encrypted message is: %s\n", str[]);
+    }
     
     
 
@@ -59,7 +80,7 @@ Task 6: Decryption of a day-1 provided block of cipher text encrypted with a sub
 Task 7: Decryption of an unseen block of cipher text on marking day
 
 
- *\
+ */
 
 
 }
