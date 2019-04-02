@@ -24,18 +24,23 @@ int main()
 /*Project Planning:
 
 Task 1: Encryption with a rotation cipher given plain text and key
-- Input message
+- Input message to encrypt
 - Input key
 - Encrypt text
 - Print encrypted text*\ 
 
-   int c; //This is the key of encryption - the number of letters by which the alphabet is rotated to calculate the substitution
-   const char MESSAGETOROTATE[1024]; This initialises the user's input as being constant
+   int rotateKey; //This is the key of encryption - the number of letters by which the alphabet is rotated to calculate the substitution
+   const char MESSAGETOROTATE[1024]; //This initialises the user's input as being constant
    
    
     printf("Please enter a message to encrypt:\n");
-    scanf("%s\n", str); // Note: NO & REQUIRED! The user's message is entered as a string
+    //scanf("%s\n", str); // Note: NO & REQUIRED! The user's message is entered as a string
     //Note: Need to use uppercase letters only, and all white space, punctuation and numerals need to be ignored.
+    
+    printf("Please enter an encryption key: ");
+    //scanf("%d, &rotateKey");
+    
+    
 
 
 
