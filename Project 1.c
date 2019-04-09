@@ -42,27 +42,33 @@ Task 1: Encryption with a rotation cipher given plain text and key
 - Encrypt text
 - Print encrypted text*/
 
-    //int rotateKey = 5; /*This is the key of encryption - the number of letters by which the alphabet is rotated to
-                         //calculate the substitution (temporarily hardcoded to 5 at the moment without scanf)*/
-    char str[1024] = "Hello"; //This initialises the user's input as a string. Should it be a constant?? Temporarily hardcoded
+FILE *input;
+
+input = fopen("encryptedmessage.txt", "w");
+while()
 
     printf("Please enter a message to encrypt:\n");
-    //scanf("%s\n", str); // Note: NO & REQUIRED! The user's message is entered as a string
+    //scanf("%s\n", str); // Note: NO '&'' REQUIRED! The user's message is entered as a string
     //Note: Need to use uppercase letters only, and all white space, punctuation and numerals need to be ignored.
+    
     
     printf("Please enter a key to shift the letters by: ");
     //scanf("%d, &rotateKey");
     
-    printf("Encrypted message is: ");
-    printf("%s", str);
+    printf("Encrypted message is: "); 
+    printf("%s", encryptRotate(str));
     
 }
 
     char encryptRotate(char str, int index) //Index is the ASCII value of a letter a given time
     {
-        int rotateKey = 5;
+        
+        
+        int rotateKey = 5;  //This is the key of encryption - the number of letters by which the alphabet is rotated to
+                         //calculate the substitution (temporarily hardcoded to 5 at the moment without scanf)*/
+        char str[1024] = "Hello"; //This initialises the user's input as a string. Should it be a constant?? Temporarily hardcoded
     
-        for(index = 65; (index < 100 && index != 0); index++)
+        for(index = 65; (index < 100 && index != 0); index++) //the index increments between 
         {
             str[index] = (str[index] + rotateKey); // Encryption calculation
             return str;
