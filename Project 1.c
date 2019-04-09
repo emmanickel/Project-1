@@ -42,6 +42,73 @@ Task 1: Encryption with a rotation cipher given plain text and key
 - Encrypt text
 - Print encrypted text*/
 
+
+
+#include <stdio.h>
+
+      //char encryption(char str, char index);
+char shiftletters(char str[int k]);
+
+
+int main()
+{
+    
+ char str[1024] = "hello";//hardcoded for now
+ int k;
+ 
+
+    printf("Please enter a message to encrypt:\n");
+    //scanf("%s\n", str); // Note: NO '&'' REQUIRED! The user's message is entered as a string
+    //Note: Need to use uppercase letters only, and all white space, punctuation and numerals need to be ignored.
+    
+    printf("%s\n", str); //hardcoded message for now
+    
+    printf("Please enter a key to shift the letters by: ");
+    //scanf("%d, &rotateKey");
+    
+    printf("The encrypted message is: ");
+    
+ for() //just for the hradcoded hello message
+    printf("%c", shiftletters());
+    
+    
+}  
+    
+    
+
+
+char shiftletters(char str)
+{
+   
+   
+int temp; //temporary number where A=0, B=1.. etc
+int encryption; //the new number after shifting
+char newletter; // the corresponding ASCII letter (after adding 65 back) */
+int shift = 5;
+
+    for(i = 65; i < 91; i++)
+    {
+        
+//  printf("%c %d\n", i, i);
+
+    temp = i - 65;
+
+ // printf("%d\n", temp);
+    
+  encryption = (temp + shift)%26;
+    
+ //printf("%d\n", encryption);
+    
+    newletter = encryption + 65;
+    
+    
+    return newletter;
+    } 
+  }
+
+
+
+
 FILE *input;
 
 input = fopen("encryptedmessage.txt", "w");
