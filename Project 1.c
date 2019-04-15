@@ -82,32 +82,42 @@ int main()
         default: printf("Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6 or 7\n", taskNumber);
     }
 
-
 char rotnEncryption(char* message)
 {
     int rotnKey;//the key of encryption (the number of letters the unser decides to shift by)
     int index = 0;
     char encryptedletter; // the corresponding ASCII letter after rotation encryption calculation
     
-    printf("Please enter a key (a number from 1 to 25) to shift the letters by: ");//the console asks the user to input a key
+    printf("Please enter a key (a number from 1 to 25) to shift the letters by:\n");//the console asks the user to input a key
     scanf("%d", &rotnKey);//the user inputs a key
+    printf("The encrypted message is: \n");
     
-    //for loop that takes the message input by the user and reads it one character at a time until the terminating character '\0' is reached:
+    //the following for loop takes the message input by the user and reads it one character at a time until the terminating character '\0' is reached:
     for(message[index]; message[index] != '\0'; index ++)
     {
-        if(message[index] == 32)//if the character entered is a space (ASCII number 32), it is not encrypted but still printed as a space
+        if(message[index] < 65 || message[index] > 90)
+        { 
+            
+            /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
+            no encryption will take place*/ 
+            
+            printf("%c", message[index]);//the character entered by the user is printed unchanged
+        } 
+        else if(message[index] >= 65 || message[index] <= 90)
         {
-            printf(" ");//print a space
-        }
-        else if(message[index] != 32)//this accounts for all other cases where the characters are not spaces
-        {
+            /*if the ASCII character entered does have a corresponding integer within the range assigned to capital letters,
+            the character will be encrypted according to the shift entered by the user*/
+            
             encryptedletter = ((message[index]-65) + rotnKey)%26 + 65;
-            //the corresponding ASCII value of each character in the user's message is subtracted by 65, shifted by the given key then 65 id added
-            printf("%c", encryptedletter);//each character of the message is printed after being encrypted
+            
+            /*65 is subtracted from the assigned integer for each ASCII character to convert it to the form A=0, B=1, C=2 and so on.
+            The integer values are shifted by the key entered by the user then the modulus (remainder) is taken. 65 is added to bring the integers back to the range of ASCII characters
+            corresponding to capital letters*/
+            
+            printf("%c", encryptedletter);//each character of the encrypted message is printed
         }
     }   
 }    
-
 
 char rotnDecryption(char* rotnmessage)
 {
@@ -115,23 +125,40 @@ char rotnDecryption(char* rotnmessage)
     int index = 0;
     char decryptedletter; // the corresponding ASCII letter after rotation encryption calculation
     
-    printf("Please enter the key (a number from 1 to 25) that the letters have been shifted by: ");//the console asks the user to input a key
+    printf("Please enter the key (a number from 1 to 25) that the letters have been shifted by:\n");//the console asks the user to input a key
     scanf("%d", &rotnKey);//the user inputs the key
+    printf("The decrypted message is:\n");
     
     //for loop that takes the encrypted message input by the user and reads it one character at a time until the terminating character '\0' is reached:
     for(rotnmessage[index]; rotnmessage[index] != '\0'; index ++)
     {
-        if(rotnmessage[index] == 32)//if the character entered is a space (ASCII number 32), it is not encrypted but still printed as a space
-            printf(" ");//prints original encrypted character
-        else if(rotnmessage[index] == 65)
-            printf("Y");
-        else if(rotnmessage[index] == 66)
-            printf("Z");
-        else
+        if(rotnmessage[index] < 65 || rotnmessage[index] > 90)
+        { 
+            
+            /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
+            no decryption will take place*/ 
+            
+            printf("%c", rotnmessage[index]);//the character entered by the user is printed unchanged
+        } 
+        else if(rotnmessage[index] >= 65 || rotnmessage[index] <= 90)
         {
-            decryptedletter = ((rotnmessage[index]-65) - rotnKey)%26 + 65;
-            //the corresponding ASCII value of each character in the user's encrypted message is subtracted by 65, shifted by the given key then 65 is added
-            printf("%c", decryptedletter);//each character of the message is printed after being decrypted
+            /*if the ASCII character entered does have a corresponding integer within the range assigned to capital letters,
+            the character will be decrypted according to the shift entered by the user*/
+            
+            decryptedletter = (rotnmessage[index] - 65 - rotnKey)%26 + 65;
+            
+            /*65 is subtracted from the assigned integer for each ASCII character to convert it to the form A=0, B=1, C=2 and so on.
+            The integer values are shifted back by the key of encryption given by the user then the modulus (remainder) is taken.
+            65 is added to bring the integers back to the range of ASCII characters corresponding to capital letters*/
+            
+            if(decryptedletter < 65)
+                decryptedletter = decryptedletter + 26;
+            /*if the character being decrypted holds a position in the alphabet of lower value than the selected key, the calculation
+            will result in the decrypted character being outside (less than) the range of the capital letters. To resolve this, characters
+            in this position have 26 added after the calculation to ensure they remain in the range (the rotation decryption 'wraps' around the
+            alphabet)*/
+            
+            printf("%c", decryptedletter);//each decrypted character is printed to the console
         }
     }   
 }    
