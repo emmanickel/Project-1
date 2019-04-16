@@ -6,6 +6,7 @@ char menusystem(void); //This function allows the user to select which task is p
 char rotnEncryption(char* message);//This function is used in task 1 for rotation encrypti
 char rotnDecryption(char* rotnmessage);//This function is used in task 2 for rotation decryption
 char subnEncryption(void);//This function is used in task 3 for substitution encryption
+char subnDecryption(void);
 
 int main()
 {
@@ -34,6 +35,8 @@ int main()
     subnEncryption();//This calls a function that carries out the substitution encryption
 
 }
+
+    subnDecryption();
 
 //Function definitions:
 
@@ -227,6 +230,56 @@ char subnEncryption(void)
             /*The character of subalphabet corresponding to the 'counter' subindex is assigned to the encrypted letter*/
             printf("%c", encryptedletter);//the encrypted letter is printed to the console
         }//this process continues for each character in the message entered by the user until the termintating character is reached
+    }
+}
+
+//Task 4 (substitution decryption) function decryption:
+
+char subnDecryption(void)
+{
+    char alphabet[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char subalphabet[26];
+    char submessage[1024];
+    int subindex =0;
+    char decryptedletter;
+
+    printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution key
+    scanf("%s", subalphabet);//user inputs a substitution key
+    
+    subalphabet[subindex];
+    
+  //this set of if, else if statements ensures that the user enters a valid key (26 letters)
+   /*if(subindex < 26 || subindex > 26)
+   {
+            printf("Error: too few or too many letters were entered. Please enter a substitution (26 capital letters):\n");//console asks user to enter substitution key
+            scanf("%s", subalphabet);//user inputs a substitution key
+   }
+   if(subalphabet[index] < 65 || subalphabet[index] > 90)
+   {
+            printf("Error: the characters entered were not within the range of capital letters (A to Z). Please enter a substitution (26 capital letters):\n");
+            //console asks user to enter substitution key
+            scanf("%s", subalphabet);//user inputs a substitution key
+   }
+   else 
+        continue;*/
+   
+   //if the user correctly enters 26 capital letters for the key, the program continues
+   
+    printf("\nPlease enter a message to decrypt:"); //console asks the user to enter a message to decrypt
+    scanf("\n%[^\n]", submessage);//user inputs a message to decrypt
+    
+    printf("The decrypted message is: \n");
+    
+    for(submessage[subindex]; submessage[subindex] != '\0'; subindex ++)
+    {
+        if(submessage[subindex] < 65 || submessage[subindex] > 90)
+        printf("%c", submessage[subindex]);
+        
+        else if(submessage[subindex] >= 65 || submessage[subindex] <= 90)
+        {
+            decryptedletter = alphabet[subindex];
+            printf("%c", decryptedletter);
+        }
     }
 }
 
