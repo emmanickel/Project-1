@@ -2,10 +2,10 @@
 
 //function prototypes:
 
-char menusystem(void);
-char rotnEncryption(char* message);
-char rotnDecryption(char* rotnmessage);
-char subnEncryption(void);
+char menusystem(void); //This function allows the user to select which task is performed
+char rotnEncryption(char* message);//This function is used in task 1 for rotation encrypti
+char rotnDecryption(char* rotnmessage);//This function is used in task 2 for rotation decryption
+char subnEncryption(void);//This function is used in task 3 for substitution encryption
 
 int main()
 {
@@ -31,19 +31,20 @@ int main()
 
 //Task 3: Encryption with a substitution cipher given plain text and key
 
-    subnEncryption();
+    subnEncryption();//This calls a function that carries out the substitution encryption
 
 }
 
 //Function definitions:
 
-//Menu system function
+//Menu system function definition:
+
     char menusystem(void)
 {
     int taskNumber;
     
     printf("Please select a task (1, 3, 4, 5, 6 or 7): \n"); // Asks user which task they would like performed
-    printf("(1) Encryption with a rotation cipher given plain text and key\n");
+    printf("(1) Encryption with a rotation cipher given plain text and key\n"); //prints the description of each task
     printf("(2) Decryption with a rotation cipher given cipher text and key\n");
     printf("(3) Encryption with a substitution ciper given plain text and key\n");
     printf("(4) Decryption with a substitution cipher given cipher text and key\n");
@@ -52,7 +53,7 @@ int main()
     printf("(7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
     printf("Selection: ");
     
-    scanf("%d", &taskNumber);  //This reads the user's input
+    scanf("%d", &taskNumber);  //Reads the user's input
     // Write switch statements to ues input to select task.
     
     switch(taskNumber)
@@ -87,6 +88,8 @@ int main()
             break;
         default: printf("Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6 or 7\n", taskNumber);
     }
+
+//Task 1 (rotation encryption) function definition:
 
 char rotnEncryption(char* message)
 {
@@ -124,6 +127,8 @@ char rotnEncryption(char* message)
         }
     }   
 }    
+
+//Task 2 (rotation decription) function definition:
 
 char rotnDecryption(char* rotnmessage)
 {
@@ -169,9 +174,11 @@ char rotnDecryption(char* rotnmessage)
     }   
 }    
 
+//Task 3 (substitution encryption) function definition:
+
 char subnEncryption(void)
 {
-    char alphabet[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char alphabet[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";//string containing all capital letters of the alphabet in order
     char subalphabet[26];
     char message[1024];
     int subindex;
