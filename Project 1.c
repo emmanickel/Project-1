@@ -6,7 +6,7 @@ char menusystem(void); //This function allows the user to select which task is p
 char rotnEncryption(char* message);//This function is used in task 1 for rotation encrypti
 char rotnDecryption(char* rotnmessage);//This function is used in task 2 for rotation decryption
 char subnEncryption(void);//This function is used in task 3 for substitution encryption
-char subnDecryption(void);
+char subnDecryption(void);//This function is called in task 4 to carry out substitution decryption
 
 int main()
 {
@@ -35,6 +35,8 @@ int main()
     subnEncryption();//This calls a function that carries out the substitution encryption
 
 }
+
+//Task 4: Decryption with a substitution cipher given plain text and key
 
     subnDecryption();
 
@@ -237,11 +239,11 @@ char subnEncryption(void)
 
 char subnDecryption(void)
 {
-    char alphabet[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    char subalphabet[26];
-    char submessage[1024];
-    int subindex =0;
-    char decryptedletter;
+    char alphabet[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";//An array of a string containing all of the capital letters in order
+    char subalphabet[26];//An array that will contain the substitution key entered by the user
+    char submessage[1024];//The message encrypted with a substitution cipher entered by the user
+    int subindex = 0;//A counter for each character of the encrypted message, used in the for loop
+    char decryptedletter;//The decrypted character determined after substitution decryption
 
     printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution key
     scanf("%s", subalphabet);//user inputs a substitution key
@@ -268,18 +270,27 @@ char subnDecryption(void)
     printf("\nPlease enter a message to decrypt:"); //console asks the user to enter a message to decrypt
     scanf("\n%[^\n]", submessage);//user inputs a message to decrypt
     
-    printf("The decrypted message is: \n");
+    printf("The decrypted message is: \n");//the decrypted message will be printed after this
     
     for(submessage[subindex]; submessage[subindex] != '\0'; subindex ++)
     {
         if(submessage[subindex] < 65 || submessage[subindex] > 90)
         printf("%c", submessage[subindex]);
+        /*Characters outside the range of capital letters are printed unchanged
+        (no decryption necessary)*/
         
         else if(submessage[subindex] >= 65 || submessage[subindex] <= 90)
+        /*characters within the range of capital letters require decryption*/
         {
             decryptedletter = alphabet[subindex];
-            printf("%c", decryptedletter);
+            /*The character of the ordered alphabet corresponding to the 
+            oucounter subindex is assigned to be the decrypted character*/
+            
+            printf("%c", decryptedletter);//The decrypted character is printed to the console
         }
+        /*This process continues through all the characters of the encrypted message until
+        the terminating character '\0' is reached and the full decrypted message has been 
+        printed to the console.*/
     }
 }
 
