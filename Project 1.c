@@ -178,17 +178,17 @@ char rotnDecryption(char* rotnmessage)
 
 char subnEncryption(void)
 {
-    char alphabet[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";//string containing all capital letters of the alphabet in order
-    char subalphabet[26];
-    char message[1024];
-    int subindex;
-    int index = 0;
-    char encryptedletter;
+    char alphabet[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";//array of a string containing all capital letters of the alphabet in order
+    char subalphabet[26];//array that will contain the key substitution alphabet entered as a string by the user
+    char message[1024];//array that will contain the message entered by the user to be encrypted
+    int subindex;//integer value that will act as a counter for the subalphabet array
+    int index = 0;//integer value that will act as a counter for each character in the message entered by the user
+    char encryptedletter;//new character printed after encryption
 
     printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution key
     scanf("%s", subalphabet);//user inputs a substitution key
     
-    subalphabet[subindex];
+    subalphabet[subindex];//declaration that subindex is the 'counter' for subalphabet
     
   //this set of if, else if statements ensures that the user enters a valid key (26 letters)
    /*if(subindex < 26 || subindex > 26)
@@ -210,19 +210,23 @@ char subnEncryption(void)
     printf("\nPlease enter a message to encrypt:"); //console asks the user to enter a message to encrypt
     scanf("\n%[^\n]", message);//user inputs a message to encrypt
     
-    printf("The encrypted message is: \n");
+    printf("The encrypted message is: \n");//the encrypted message is printed after this
     
+    //encryption:
     for(message[index]; message[index] != '\0'; index ++)
     {
         if(message[index] < 65 || message[index] > 90)
-        printf("%c", message[index]);
-        
-        else if(message[index] >= 65 || message[index] <= 90)
+        printf("%c", message[index]);//characters outside the ASCII integer range of capital letters are not encrypted
+                                    
+        else if(message[index] >= 65 || message[index] <= 90)//characters in the range of capital letters are encrypted
         {
             subindex = message[index] - 65;
+            /*65 is substracted from the first character in the message to bring it back to the form A=0, B=1, C=2 and so on.
+            This integer value is assigned to subindex (the counter for the substitution alphabet)*/
             encryptedletter = subalphabet[subindex];
-            printf("%c", encryptedletter);
-        }
+            /*The character of subalphabet corresponding to the 'counter' subindex is assigned to the encrypted letter*/
+            printf("%c", encryptedletter);//the encrypted letter is printed to the console
+        }//this process continues for each character in the message entered by the user until the termintating character is reached
     }
 }
 
