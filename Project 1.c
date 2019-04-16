@@ -5,6 +5,7 @@
 char menusystem(void);
 char rotnEncryption(char* message);
 char rotnDecryption(char* rotnmessage);
+char subnEncryption(void);
 
 int main()
 {
@@ -28,10 +29,15 @@ int main()
     
     rotnDecryption(rotnmessage);//the message is decrypted by calling the function rotnDecryption
 
+//Task 3: Encryption with a substitution cipher given plain text and key
+
+    subnEncryption();
+
 }
 
 //Function definitions:
 
+//Menu system function
     char menusystem(void)
 {
     int taskNumber;
@@ -163,10 +169,60 @@ char rotnDecryption(char* rotnmessage)
     }   
 }    
 
+char subnEncryption(void)
+{
+    char alphabet[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char subalphabet[26];
+    char message[1024];
+    int subindex;
+    int index = 0;
+    char encryptedletter;
+
+    printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution key
+    scanf("%s", subalphabet);//user inputs a substitution key
+    
+    subalphabet[subindex];
+    
+  //this set of if, else if statements ensures that the user enters a valid key (26 letters)
+   /*if(subindex < 26 || subindex > 26)
+   {
+            printf("Error: too few or too many letters were entered. Please enter a substitution (26 capital letters):\n");//console asks user to enter substitution key
+            scanf("%s", subalphabet);//user inputs a substitution key
+   }
+   if(subalphabet[index] < 65 || subalphabet[index] > 90)
+   {
+            printf("Error: the characters entered were not within the range of capital letters (A to Z). Please enter a substitution (26 capital letters):\n");
+            //console asks user to enter substitution key
+            scanf("%s", subalphabet);//user inputs a substitution key
+   }
+   else 
+        continue;*/
+   
+   //if the user correctly enters 26 capital letters for the key, the program continues
+   
+    printf("\nPlease enter a message to encrypt:"); //console asks the user to enter a message to encrypt
+    scanf("\n%[^\n]", message);//user inputs a message to encrypt
+    
+    printf("The encrypted message is: \n");
+    
+    for(message[index]; message[index] != '\0'; index ++)
+    {
+        if(message[index] < 65 || message[index] > 90)
+        printf("%c", message[index]);
+        
+        else if(message[index] >= 65 || message[index] <= 90)
+        {
+            subindex = message[index] - 65;
+            encryptedletter = subalphabet[subindex];
+            printf("%c", encryptedletter);
+        }
+    }
+}
+
 /*
 Task 2: Decryption with a rotation cipher given cipher text and key
 
-Task 3: Encryption with a substitution ciper given plain text and key
+Task 3: Encryption with a substitution cipher given plain text and key
 
 Task 4: Decryption with a substitution cipher given cipher text and key
 
