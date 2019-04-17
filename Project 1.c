@@ -130,7 +130,7 @@ char rotnEncryption(char* message)
 
 //Task 2 (rotation decription) function definition:
 
-char rotnDecryption(char* rotnmessage)
+char rotnDecryption(void)
 {
     char rotnmessage[1024]; //the encrypted message entered by the user
     int rotnKey;//the key of encryption (the known number of characters the rotation cipher has been shifted by)
