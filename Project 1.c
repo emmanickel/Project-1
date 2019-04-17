@@ -4,7 +4,7 @@
 
 char menusystem(void); //This function allows the user to select which task is performed
 char rotnEncryption(void);//This function is used in task 1 for rotation encrypti
-char rotnDecryption(char* rotnmessage);//This function is used in task 2 for rotation decryption
+char rotnDecryption(void);//This function is used in task 2 for rotation decryption
 char subnEncryption(void);//This function is used in task 3 for substitution encryption
 char subnDecryption(void);//This function is called in task 4 to carry out substitution decryption
 
@@ -18,12 +18,7 @@ int main()
 
 //Task 2: Decryption with a rotation cipher given cipher text and key
 
-    char rotnmessage[1024]; //the encrypted message entered by the user
-    
-    printf("Enter an encrypted message to decrypt (in capital letters):\n");//the console tells the user to input an encrypted message
-    scanf("%[^\n]", rotnmessage);//the user inputs the encrypted message
-    
-    rotnDecryption(rotnmessage);//the message is decrypted by calling the function rotnDecryption
+    rotnDecryption();//the message is decrypted by calling the function rotnDecryption
 
 //Task 3: Encryption with a substitution cipher given plain text and key
 
@@ -137,9 +132,14 @@ char rotnEncryption(char* message)
 
 char rotnDecryption(char* rotnmessage)
 {
+    char rotnmessage[1024]; //the encrypted message entered by the user
     int rotnKey;//the key of encryption (the known number of characters the rotation cipher has been shifted by)
     int index = 0;
     char decryptedletter; // the corresponding ASCII letter after rotation encryption calculation
+    
+        
+    printf("Enter an encrypted message to decrypt (in capital letters):\n");//the console tells the user to input an encrypted message
+    scanf("%[^\n]", rotnmessage);//the user inputs the encrypted message
     
     printf("Please enter the key (a number from 1 to 25) that the letters have been shifted by:\n");//the console asks the user to input a key
     scanf("%d", &rotnKey);//the user inputs the key
