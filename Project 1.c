@@ -3,7 +3,7 @@
 //function prototypes:
 
 char menusystem(void); //This function allows the user to select which task is performed
-char rotnEncryption(char* message);//This function is used in task 1 for rotation encrypti
+char rotnEncryption(void);//This function is used in task 1 for rotation encrypti
 char rotnDecryption(char* rotnmessage);//This function is used in task 2 for rotation decryption
 char subnEncryption(void);//This function is used in task 3 for substitution encryption
 char subnDecryption(void);//This function is called in task 4 to carry out substitution decryption
@@ -14,12 +14,7 @@ int main()
     
 //Task 1: Encryption with a rotation cipher given plain text and key
     
-    char message[1024]; //the message entered by the user
-    
-    printf("Enter a message to encrypt (in capital letters):\n");//the console tells the user to input a message
-    scanf("%[^\n]", message);//the user inputs a message
-    
-    rotnEncryption(message);//the message is encrypted by calling the function rotnEncryption
+    rotnEncryption();//the message is encrypted by calling the function rotnEncryption
 
 //Task 2: Decryption with a rotation cipher given cipher text and key
 
@@ -98,9 +93,14 @@ int main()
 
 char rotnEncryption(char* message)
 {
+    char message[1024]; //the message entered by the user
     int rotnKey;//the key of encryption (the number of letters the unser decides to shift by)
     int index = 0;
     char encryptedletter; // the corresponding ASCII letter after rotation encryption calculation
+    
+    
+    printf("Enter a message to encrypt (in capital letters):\n");//the console tells the user to input a message
+    scanf("%[^\n]", message);//the user inputs a message
     
     printf("Please enter a key (a number from 1 to 25) to shift the letters by:\n");//the console asks the user to input a key
     scanf("%d", &rotnKey);//the user inputs a key
