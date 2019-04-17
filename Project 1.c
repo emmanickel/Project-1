@@ -24,11 +24,10 @@ int main()
 
     subnEncryption();//This calls a function that carries out the substitution encryption
 
-}
-
 //Task 4: Decryption with a substitution cipher given plain text and key
 
     subnDecryption();
+}
 
 //Function definitions:
 
