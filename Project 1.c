@@ -9,10 +9,10 @@ char subnDecryption(void);//This function is called in task 4 to carry out subst
 
 int main()
 {
-    FILE *input, *output;
+    FILE *output, *input;
     
     input = fopen("input.txt", "r");
-    output = fopen("output.txt", "w");
+    output = fopen("output.txt", "w+");
     
     if(input == NULL || output == NULL)
     {
@@ -22,7 +22,7 @@ int main()
     
     int taskNumber;
     
-    fprintf(output,"Please select a task (1, 3, 4, 5, 6 or 7): \n"); // Asks user which task they would like performed
+    fprintf(output, "Please select a task (1, 2, 3, 4, 5, 6 or 7): \n"); // Asks user which task they would like performed
     fprintf(output, "(1) Encryption with a rotation cipher given plain text and key\n"); //prints the description of each task
     fprintf(output, "(2) Decryption with a rotation cipher given cipher text and key\n");
     fprintf(output, "(3) Encryption with a substitution ciper given plain text and key\n");
@@ -30,9 +30,8 @@ int main()
     fprintf(output, "(5) Decryption of a previously unseen cipher text encrypted with a rotation cipher\n");
     fprintf(output, "(6) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
     fprintf(output, "(7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
-    fprintf(output, "Selection: ");
-    
-    fscanf(input, "%d", &taskNumber);  //Reads the user's input
+    fprintf(output, "Selection: \n");
+    fscanf(output, "%d", &taskNumber);  //Reads the user's input
     
     switch(taskNumber)
     {
@@ -54,18 +53,16 @@ int main()
             break;
         case 5:
             fprintf(output, "You have selected task (5).");
-            //task1(); (somehow get task 5 to run)
             break;
         case 6:
             fprintf(output, "You have selected task (6).");
-            //task1(); (somehow get task 6 to run)
             break;
         case 7:
             fprintf(output, "You have selected task (7).");
-            //task1(); (somehow get task 7 to run)
             break;
-        default: fprintf(output, "Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6 or 7\n", taskNumber);  //Reads the user's input
-            fscanf(input, "%d", &taskNumber);  //Reads the user's input again
+        default:
+            fprintf(output, "Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6, or 7.\nSelection:\n");
+            fscanf(output, "%d", &taskNumber);  //Reads the user's input again
     }
 }
     
