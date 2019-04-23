@@ -9,51 +9,63 @@ char subnDecryption(void);//This function is called in task 4 to carry out subst
 
 int main()
 {
+    FILE *input, *output;
+    
+    input = fopen("input.txt", "r");
+    output = fopen("output.txt", "w");
+    
+    if(input == NULL || output == NULL)
+    {
+        perror("fopen()");
+        return;
+    }
+    
     int taskNumber;
     
-    printf("Please select a task (1, 3, 4, 5, 6 or 7): \n"); // Asks user which task they would like performed
-    printf("(1) Encryption with a rotation cipher given plain text and key\n"); //prints the description of each task
-    printf("(2) Decryption with a rotation cipher given cipher text and key\n");
-    printf("(3) Encryption with a substitution ciper given plain text and key\n");
-    printf("(4) Decryption with a substitution cipher given cipher text and key\n");
-    printf("(5) Decryption of a previously unseen cipher text encrypted with a rotation cipher\n");
-    printf("(6) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
-    printf("(7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
-    printf("Selection: ");
+    fprintf(output,"Please select a task (1, 3, 4, 5, 6 or 7): \n"); // Asks user which task they would like performed
+    fprintf(output, "(1) Encryption with a rotation cipher given plain text and key\n"); //prints the description of each task
+    fprintf(output, "(2) Decryption with a rotation cipher given cipher text and key\n");
+    fprintf(output, "(3) Encryption with a substitution ciper given plain text and key\n");
+    fprintf(output, "(4) Decryption with a substitution cipher given cipher text and key\n");
+    fprintf(output, "(5) Decryption of a previously unseen cipher text encrypted with a rotation cipher\n");
+    fprintf(output, "(6) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
+    fprintf(output, "(7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
+    fprintf(output, "Selection: ");
     
-    scanf("%d", &taskNumber);  //Reads the user's input
+    fscanf(input, "%d", &taskNumber);  //Reads the user's input
     
     switch(taskNumber)
     {
         case 1: 
-            printf("You have selected task (1).");
+            fprintf(output, "You have selected task (1).");
             rotnEncryption(); // task 1 runs
             break;
         case 2:
-            printf("You have selected task (2).");
+            fprintf(output, "You have selected task (2).");
             rotnDecryption(); // task 2 runs
             break;
         case 3:
-            printf("You have selected task (3).");
+            fprintf(output, "You have selected task (3).");
             subnEncryption(); // task 3 runs
             break;
         case 4:
-            printf("You have selected task (4).");
+            fprintf(output, "You have selected task (4).");
             subnDecryption(); // task 4 runs
             break;
         case 5:
-            printf("You have selected task (5).");
+            fprintf(output, "You have selected task (5).");
             //task1(); (somehow get task 5 to run)
             break;
         case 6:
-            printf("You have selected task (6).");
+            fprintf(output, "You have selected task (6).");
             //task1(); (somehow get task 6 to run)
             break;
         case 7:
-            printf("You have selected task (7).");
+            fprintf(output, "You have selected task (7).");
             //task1(); (somehow get task 7 to run)
             break;
-        default: printf("Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6 or 7\n", taskNumber);
+        default: fprintf(output, "Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6 or 7\n", taskNumber);  //Reads the user's input
+            fscanf(input, "%d", &taskNumber);  //Reads the user's input again
     }
 }
     
@@ -61,7 +73,7 @@ int main()
 
 //Task 1 (rotation encryption) function definition:
 
-char rotnEncryption(char* message)
+char rotnEncryption(void)
 {
     char message[1024]; //the message entered by the user
     int rotnKey;//the key of encryption (the number of letters the unser decides to shift by)
@@ -100,7 +112,8 @@ char rotnEncryption(char* message)
             
             printf("%c", encryptedletter);//each character of the encrypted message is printed
         }
-    }   
+    } 
+    return 0;
 }    
 
 //Task 2 (rotation decription) function definition:
@@ -151,7 +164,8 @@ char rotnDecryption(void)
             
             printf("%c", decryptedletter);//each decrypted character is printed to the console
         }
-    }   
+    }  
+    return 0;
 }    
 
 //Task 3 (substitution encryption) function definition:
@@ -168,7 +182,7 @@ char subnEncryption(void)
     printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution key
     scanf("%s", subalphabet);//user inputs a substitution key
     
-    subalphabet[subindex];//declaration that subindex is the 'counter' for subalphabet
+    //subalphabet[subindex];//declaration that subindex is the 'counter' for subalphabet
     
   //this set of if, else if statements ensures that the user enters a valid key (26 letters)
    /*if(subindex < 26 || subindex > 26)
@@ -208,6 +222,7 @@ char subnEncryption(void)
             printf("%c", encryptedletter);//the encrypted letter is printed to the console
         }//this process continues for each character in the message entered by the user until the termintating character is reached
     }
+    return 0;
 }
 
 //Task 4 (substitution decryption) function decryption:
@@ -223,7 +238,7 @@ char subnDecryption(void)
     printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution key
     scanf("%s", subalphabet);//user inputs a substitution key
     
-    subalphabet[subindex];
+    //subalphabet[subindex];
     
   //this set of if, else if statements ensures that the user enters a valid key (26 letters)
    /*if(subindex < 26 || subindex > 26)
@@ -267,7 +282,16 @@ char subnDecryption(void)
         the terminating character '\0' is reached and the full decrypted message has been 
         printed to the console.*/
     }
+    return 0;
 }
+
+//Task 5:Decryption with a substitution cipher given cipher text and key
+/*File *stream;
+while (!feof(stream))
+{
+    //read from file
+    //do stuff
+}*/
 
 /*
 Task 2: Decryption with a rotation cipher given cipher text and key
