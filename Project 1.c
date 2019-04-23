@@ -2,38 +2,12 @@
 
 //function prototypes:
 
-char menusystem(void); //This function allows the user to select which task is performed
 char rotnEncryption(void);//This function is used in task 1 for rotation encrypti
 char rotnDecryption(void);//This function is used in task 2 for rotation decryption
 char subnEncryption(void);//This function is used in task 3 for substitution encryption
 char subnDecryption(void);//This function is called in task 4 to carry out substitution decryption
 
 int main()
-{
-    menusystem();
-    
-//Task 1: Encryption with a rotation cipher given plain text and key
-    
-    rotnEncryption();//the message is encrypted by calling the function rotnEncryption
-
-//Task 2: Decryption with a rotation cipher given cipher text and key
-
-    rotnDecryption();//the message is decrypted by calling the function rotnDecryption
-
-//Task 3: Encryption with a substitution cipher given plain text and key
-
-    subnEncryption();//This calls a function that carries out the substitution encryption
-
-//Task 4: Decryption with a substitution cipher given plain text and key
-
-    subnDecryption();
-}
-
-//Function definitions:
-
-//Menu system function definition:
-
-    char menusystem(void)
 {
     int taskNumber;
     
@@ -48,25 +22,24 @@ int main()
     printf("Selection: ");
     
     scanf("%d", &taskNumber);  //Reads the user's input
-    // Write switch statements to ues input to select task.
     
     switch(taskNumber)
     {
         case 1: 
             printf("You have selected task (1).");
-            //task1(); (somehow get task 1 to run)
+            rotnEncryption(); // task 1 runs
             break;
         case 2:
             printf("You have selected task (2).");
-            //task1(); (somehow get task 2 to run)
+            rotnDecryption(); // task 2 runs
             break;
         case 3:
             printf("You have selected task (3).");
-            //task1(); (somehow get task 3 to run)
+            subnEncryption(); // task 3 runs
             break;
         case 4:
             printf("You have selected task (4).");
-            //task1(); (somehow get task 4 to run)
+            subnDecryption(); // task 4 runs
             break;
         case 5:
             printf("You have selected task (5).");
@@ -82,6 +55,9 @@ int main()
             break;
         default: printf("Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6 or 7\n", taskNumber);
     }
+}
+    
+//Function definitions:
 
 //Task 1 (rotation encryption) function definition:
 
