@@ -78,12 +78,12 @@ char rotnEncryption(void)
     char encryptedletter; // the corresponding ASCII letter after rotation encryption calculation
     
     
-    fprintf(output, "Enter a message to encrypt (in capital letters):\n");//the console tells the user to input a message
-    fscanf(output, "%[^\n]", message);//the user inputs a message
+    fprintf(task1, "Enter a message to encrypt (in capital letters):\n");//the console tells the user to input a message
+    fscanf(task1, "%[^\n]", message);//the user inputs a message
     
-    fprintf(output, "Please enter a key (a number from 1 to 25) to shift the letters by:\n");//the console asks the user to input a key
-    fscanf(output, "%d", &rotnKey);//the user inputs a key
-    printf("The encrypted message is: \n");
+    fprintf(task1, "Please enter a key (a number from 1 to 25) to shift the letters by:\n");//the console asks the user to input a key
+    fscanf(task1, "%d", &rotnKey);//the user inputs a key
+    fprintf(task1, "The encrypted message is: \n");
     
     //the following for loop takes the message input by the user and reads it one character at a time until the terminating character '\0' is reached:
     for(message[index]; message[index] != '\0'; index ++)
