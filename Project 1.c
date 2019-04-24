@@ -9,60 +9,60 @@ char subnDecryption(void);//This function is called in task 4 to carry out subst
 
 int main()
 {
-    FILE *output, *input;
+    FILE *menusystem;
     
-    input = fopen("input.txt", "r");
-    output = fopen("output.txt", "w+");
+    menusystem = fopen("menusystemfile.txt", "w+");
     
-    if(input == NULL || output == NULL)
+    if(menusystem == NULL)
     {
         perror("fopen()");
         return;
     }
-    
+
     int taskNumber;
     
-    fprintf(output, "Please select a task (1, 2, 3, 4, 5, 6 or 7): \n"); // Asks user which task they would like performed
-    fprintf(output, "(1) Encryption with a rotation cipher given plain text and key\n"); //prints the description of each task
-    fprintf(output, "(2) Decryption with a rotation cipher given cipher text and key\n");
-    fprintf(output, "(3) Encryption with a substitution ciper given plain text and key\n");
-    fprintf(output, "(4) Decryption with a substitution cipher given cipher text and key\n");
-    fprintf(output, "(5) Decryption of a previously unseen cipher text encrypted with a rotation cipher\n");
-    fprintf(output, "(6) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
-    fprintf(output, "(7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
-    fprintf(output, "Selection: \n");
-    fscanf(output, "%d", &taskNumber);  //Reads the user's input
+    fprintf(menusystem, "(1) Encryption with a rotation cipher given plain text and key\n"); //prints the description of each task
+    fprintf(menusystem, "(2) Decryption with a rotation cipher given cipher text and key\n");
+    fprintf(menusystem, "(3) Encryption with a substitution ciper given plain text and key\n");
+    fprintf(menusystem, "(4) Decryption with a substitution cipher given cipher text and key\n");
+    fprintf(menusystem, "(5) Decryption of a previously unseen cipher text encrypted with a rotation cipher\n");
+    fprintf(menusystem, "(6) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
+    fprintf(menusystem, "(7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
+    fprintf(menusystem, "Please select a task (1, 2, 3, 4, 5, 6 or 7): \n");
+    fprintf(menusystem, "Selection: \n"); // Asks user which task they would like performed
+    
+    fscanf(menusystem, "     %d", &taskNumber);  //Reads the user's input
     
     switch(taskNumber)
     {
         case 1: 
-            fprintf(output, "You have selected task (1).");
+            fprintf(menusystem, "You have selected task (1).");
             rotnEncryption(); // task 1 runs
             break;
         case 2:
-            fprintf(output, "You have selected task (2).");
+            fprintf(menusystem, "You have selected task (2).");
             rotnDecryption(); // task 2 runs
             break;
         case 3:
-            fprintf(output, "You have selected task (3).");
+            fprintf(menusystem, "You have selected task (3).");
             subnEncryption(); // task 3 runs
             break;
         case 4:
-            fprintf(output, "You have selected task (4).");
+            fprintf(menusystem, "You have selected task (4).");
             subnDecryption(); // task 4 runs
             break;
         case 5:
-            fprintf(output, "You have selected task (5).");
+            fprintf(menusystem, "You have selected task (5).");
             break;
         case 6:
-            fprintf(output, "You have selected task (6).");
+            fprintf(menusystem, "You have selected task (6).");
             break;
         case 7:
-            fprintf(output, "You have selected task (7).");
+            fprintf(menusystem, "You have selected task (7).");
             break;
         default:
-            fprintf(output, "Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6, or 7.\nSelection:\n");
-            fscanf(output, "%d", &taskNumber);  //Reads the user's input again
+            fprintf(menusystem, "Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6, or 7.\nSelection:\n");
+            fscanf(menusystem, "%d", &taskNumber);  //Reads the user's input again
     }
 }
     
@@ -78,11 +78,11 @@ char rotnEncryption(void)
     char encryptedletter; // the corresponding ASCII letter after rotation encryption calculation
     
     
-    printf("Enter a message to encrypt (in capital letters):\n");//the console tells the user to input a message
-    scanf("%[^\n]", message);//the user inputs a message
+    fprintf(output, "Enter a message to encrypt (in capital letters):\n");//the console tells the user to input a message
+    fscanf(output, "%[^\n]", message);//the user inputs a message
     
-    printf("Please enter a key (a number from 1 to 25) to shift the letters by:\n");//the console asks the user to input a key
-    scanf("%d", &rotnKey);//the user inputs a key
+    fprintf(output, "Please enter a key (a number from 1 to 25) to shift the letters by:\n");//the console asks the user to input a key
+    fscanf(output, "%d", &rotnKey);//the user inputs a key
     printf("The encrypted message is: \n");
     
     //the following for loop takes the message input by the user and reads it one character at a time until the terminating character '\0' is reached:
