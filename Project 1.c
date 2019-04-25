@@ -28,10 +28,16 @@ int main()
     fprintf(menusystem, "(5) Decryption of a previously unseen cipher text encrypted with a rotation cipher\n");
     fprintf(menusystem, "(6) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
     fprintf(menusystem, "(7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
+     
     fprintf(menusystem, "Please select a task (1, 2, 3, 4, 5, 6 or 7): \n");
-    fprintf(menusystem, "Selection: \n"); // Asks user which task they would like performed
+    fprintf(menusystem, "Selection:\n"); // Asks user which task they would like performed
+
+    fscanf(menusystem, "0%d", &taskNumber);  //Reads the user's input
     
-    fscanf(menusystem, "     %d", &taskNumber);  //Reads the user's input
+    printf("%d", taskNumber);
+    if(taskNumber < 1 || taskNumber > 7)
+        fprintf(menusystem, "Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6, or 7.\nSelection:\n");
+        fscanf(menusystem, "%d", &taskNumber);  //Reads the user's input again */
     
     switch(taskNumber)
     {
@@ -60,9 +66,6 @@ int main()
         case 7:
             fprintf(menusystem, "You have selected task (7).");
             break;
-        default:
-            fprintf(menusystem, "Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6, or 7.\nSelection:\n");
-            fscanf(menusystem, "%d", &taskNumber);  //Reads the user's input again
     }
 }
     
@@ -77,6 +80,14 @@ char rotnEncryption(void)
     int index = 0;
     char encryptedletter; // the corresponding ASCII letter after rotation encryption calculation
     
+    FILE *task1;
+    task1 = fopen("task1.txt", "w+");
+    
+    if(task1 == NULL)
+    {
+        perror("fopen()");
+        return;
+    }
     
     fprintf(task1, "Enter a message to encrypt (in capital letters):\n");//the console tells the user to input a message
     fscanf(task1, "%[^\n]", message);//the user inputs a message
@@ -94,7 +105,7 @@ char rotnEncryption(void)
             /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
             no encryption will take place*/ 
             
-            printf("%c", message[index]);//the character entered by the user is printed unchanged
+            fprintf(task1, "%c", message[index]);//the character entered by the user is printed unchanged
         } 
         else if(message[index] >= 65 || message[index] <= 90)
         {
@@ -107,7 +118,7 @@ char rotnEncryption(void)
             The integer values are shifted by the key entered by the user then the modulus (remainder) is taken. 65 is added to bring the integers back to the range of ASCII characters
             corresponding to capital letters*/
             
-            printf("%c", encryptedletter);//each character of the encrypted message is printed
+            fprintf(task1, "%c", encryptedletter);//each character of the encrypted message is printed
         }
     } 
     return 0;
@@ -305,4 +316,5 @@ Task 7: Decryption of an unseen block of cipher text on marking day
 
 
  */
+
 
