@@ -1,0 +1,13 @@
+User friendly menu system:
+(1) Encryption with a rotation cipher given plain text and key
+(2) Decryption with a rotation cipher given cipher text and key
+(3) Encryption with a substitution ciper given plain text and key
+(4) Decryption with a substitution cipher given cipher text and key
+(5) Decryption of a previously unseen cipher text encrypted with a rotation cipher
+(6) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher
+(7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher
+Please select a task (1, 2, 3, 4, 5, 6 or 7):
+Selection: 0
+Unknown option: 0
+Please select a task (1, 2, 3, 4, 5, 6 or 7):
+Selection: 
