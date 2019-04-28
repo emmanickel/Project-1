@@ -179,7 +179,7 @@ char rotnDecryption(void)
     
     FILE *enterMessage, *enterRotnKey;
         
-    printf(" Enter an encrypted message to decrypt (in capital letters):\n\n");//the console tells the user to input an encrypted message
+    printf(" Enter an encrypted message to decrypt (in capital letters) into the file 'enterMessage.txt'.\n\n");//the console tells the user to input an encrypted message
    
    enterMessage = fopen("enterMessage.txt", "r");
    
@@ -187,7 +187,7 @@ char rotnDecryption(void)
     
     printf("The encrypted message entered was:\n\n%s\n\n", rotnmessage);
     
-    printf("Please enter the key (a number from 1 to 25) that the letters have been shifted by:\n\n");//the console asks the user to input a key
+    printf("Please enter the key (a number from 1 to 25) that the letters have been shifted by into the file 'enterRotnKey.txt'.\n\n");//the console asks the user to input a key
     
     enterRotnKey = fopen("enterRotnKey.txt", "r");
     
@@ -242,11 +242,15 @@ char subnEncryption(void)
     int index = 0;//integer value that will act as a counter for each character in the message entered by the user
     char encryptedletter;//new character printed after encryption
 
-    FILE *task3;
-    task3 = fopen("task1.txt", "r");
+    FILE *enterSubnKey, *enterMessage;
 
-    printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution key
-    fscanf(task3, "%s", subalphabet);//user inputs a substitution key
+    printf("\n\nPlease enter a substitution (26 capital letters) into the file 'enterSubnKey'.\n\n"); //console asks user to enter substitution key
+    
+    enterSubnKey = fopen("enterSubnKey.txt", "r");
+    
+    fscanf(enterSubnKey, "%s", subalphabet);//user inputs a substitution key
+    
+    printf("The substitution key entered was:\n\n%s\n\n", subalphabet);
     
     //subalphabet[subindex];//declaration that subindex is the 'counter' for subalphabet
     
@@ -267,16 +271,21 @@ char subnEncryption(void)
    
    //if the user correctly enters 26 capital letters for the key, the program continues
    
-    printf("\nPlease enter a message to encrypt:"); //console asks the user to enter a message to encrypt
-    fscanf(task3, "\n%[^\n]", message);//user inputs a message to encrypt
+    printf("Please enter a message to encrypt into the file 'enterMessage.txt'.\n\n"); //console asks the user to enter a message to encrypt
     
-    printf("The encrypted message is: \n");//the encrypted message is printed after this
+    enterMessage = fopen("enterMessage.txt", "r");
+    
+    fscanf(enterMessage, "\n%[^\n]", message);//user inputs a message to encrypt
+    
+    printf("The message entered was:\n\n%s\n\n", message);
+    
+    printf("The encrypted message is:\n\n");//the encrypted message is printed after this
     
     //encryption:
     for(message[index]; message[index] != '\0'; index ++)
     {
         if(message[index] < 65 || message[index] > 90)
-        return message[index];//characters outside the ASCII integer range of capital letters are not encrypted
+        printf("%c", message[index]);//characters outside the ASCII integer range of capital letters are not encrypted
                                     
         else if(message[index] >= 65 || message[index] <= 90)//characters in the range of capital letters are encrypted
         {
@@ -285,7 +294,7 @@ char subnEncryption(void)
             This integer value is assigned to subindex (the counter for the substitution alphabet)*/
             encryptedletter = subalphabet[subindex];
             /*The character of subalphabet corresponding to the 'counter' subindex is assigned to the encrypted letter*/
-            return encryptedletter;//the encrypted letter is printed to the console
+            printf("%c", encryptedletter);//the encrypted letter is printed to the console
         }//this process continues for each character in the message entered by the user until the termintating character is reached
     }
 }
