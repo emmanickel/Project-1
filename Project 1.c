@@ -1,72 +1,100 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 //function prototypes:
 
-char rotnEncryption(void);//This function is used in task 1 for rotation encrypti
-char rotnDecryption(void);//This function is used in task 2 for rotation decryption
-char subnEncryption(void);//This function is used in task 3 for substitution encryption
-char subnDecryption(void);//This function is called in task 4 to carry out substitution decryption
+char rotnEncryption(void);//This function is called in task 1 for rotation encryption
+char rotnDecryption(void);//This function is called in task 2 for rotation decryption
+char subnEncryption(void);//This function is called in task 3 for substitution encryption
+char subnDecryption(void);//This function is called in task 4 for substitution decryption
 
 int main()
 {
-    FILE *menusystem;
+//int taskNumber; // The variable containing the task number selected by the user
     
-    menusystem = fopen("menusystemfile.txt", "w+");
+    FILE *menusystem; // Declaration of file for user's selection of task
     
+    /*Print a user friendly message if their is an error opening the file.
+    This avoids a segmentation fault occurring in attempting to access a NULL stream.
     if(menusystem == NULL)
     {
-        perror("fopen()");
-        return;
-    }
+    perror("fopen()");
+    return;
+    }*/
 
+    /*User friendly menu system*/
+    printf("User friendly menu system:\n");
+    printf("    (1) Encryption with a rotation cipher given plain text and key\n"); //prints the description of each task to stdout
+    printf("    (2) Decryption with a rotation cipher given cipher text and key\n");
+    printf("    (3) Encryption with a substitution ciper given plain text and key\n");
+    printf("    (4) Decryption with a substitution cipher given cipher text and key\n");
+    printf("    (5) Decryption of a previously unseen cipher text encrypted with a rotation cipher\n");
+    printf("    (6) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
+    printf("    (7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n\n");
+    
+    /*Prompt the user to select a task*/
+    printf("Please select a task (1, 2, 3, 4, 5, 6 or 7). Please enter your selection into 'menusystemfile.txt'.\n");  
+
+    /*Open a file for the user to input selection*/
+    menusystem = fopen("menusystemfile.txt", "r");
     int taskNumber;
     
-    fprintf(menusystem, "(1) Encryption with a rotation cipher given plain text and key\n"); //prints the description of each task
-    fprintf(menusystem, "(2) Decryption with a rotation cipher given cipher text and key\n");
-    fprintf(menusystem, "(3) Encryption with a substitution ciper given plain text and key\n");
-    fprintf(menusystem, "(4) Decryption with a substitution cipher given cipher text and key\n");
-    fprintf(menusystem, "(5) Decryption of a previously unseen cipher text encrypted with a rotation cipher\n");
-    fprintf(menusystem, "(6) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
-    fprintf(menusystem, "(7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n");
-     
-    fprintf(menusystem, "Please select a task (1, 2, 3, 4, 5, 6 or 7): \n");
-    fprintf(menusystem, "Selection:\n"); // Asks user which task they would like performed
-
-    fscanf(menusystem, "0%d", &taskNumber);  //Reads the user's input
-    
-    printf("%d", taskNumber);
+    /*Check file has opened correctly*/
+   /*Print a user friendly message if their is an error opening the file.
+    This avoids a segmentation fault occurring in attempting to access a NULL stream.
+    if(menusystem == NULL)
+    {
+    perror("fopen()");
+    return;
+    }*/
+   
+    /*User inputs their selection*/
+  // while (getchar() != '\n');
+ // fflush(stdin);
+    fscanf(menusystem, "%d", &taskNumber);
+    //printf("%d", taskNumber);
+    /*printf("You selected task %d.\n", taskNumber);
+  
+    //If the user selects an invalid task, they are prompted to select again
     if(taskNumber < 1 || taskNumber > 7)
-        fprintf(menusystem, "Unknown option %d\nPlease enter 1, 2, 3, 4, 5, 6, or 7.\nSelection:\n");
-        fscanf(menusystem, "%d", &taskNumber);  //Reads the user's input again */
-    
+    {
+        printf("Unknown option %d.\nPlease select a task (1, 2, 3, 4, 5, 6 or 7). Please enter your selection into 'menusystemfile.txt: ", taskNumber);
+        
+        fscanf(menusystem, "%d", &taskNumber);//Reads the user's input again
+        printf("\nYou selected task %d.\n", taskNumber);
+    }*/
+
     switch(taskNumber)
     {
-        case 1: 
-            fprintf(menusystem, "You have selected task (1).");
+        case(1): 
+            printf("You have selected task (1).");
             rotnEncryption(); // task 1 runs
             break;
-        case 2:
-            fprintf(menusystem, "You have selected task (2).");
+        case(2):
+            printf("You have selected task (2).");
             rotnDecryption(); // task 2 runs
             break;
-        case 3:
-            fprintf(menusystem, "You have selected task (3).");
+        case(3):
+            printf("You have selected task (3).");
             subnEncryption(); // task 3 runs
             break;
-        case 4:
-            fprintf(menusystem, "You have selected task (4).");
+        case(4):
+            printf("You have selected task (4).");
             subnDecryption(); // task 4 runs
             break;
-        case 5:
-            fprintf(menusystem, "You have selected task (5).");
+        case(5):
+            printf("You have selected task (5).");
             break;
-        case 6:
-            fprintf(menusystem, "You have selected task (6).");
+        case(6):
+            printf("You have selected task (6).");
             break;
-        case 7:
-            fprintf(menusystem, "You have selected task (7).");
+        case(7):
+            printf("You have selected task (7).");
             break;
+    
     }
+
 }
     
 //Function definitions:
@@ -81,7 +109,7 @@ char rotnEncryption(void)
     char encryptedletter; // the corresponding ASCII letter after rotation encryption calculation
     
     FILE *task1;
-    task1 = fopen("task1.txt", "w+");
+    task1 = fopen("task1.txt", "r");
     
     if(task1 == NULL)
     {
@@ -89,24 +117,22 @@ char rotnEncryption(void)
         return;
     }
     
-    fprintf(task1, "Enter a message to encrypt (in capital letters):\n");//the console tells the user to input a message
+    printf("Enter a message to encrypt (in capital letters):\n");//the console tells the user to input a message
     fscanf(task1, "%[^\n]", message);//the user inputs a message
     
-    fprintf(task1, "Please enter a key (a number from 1 to 25) to shift the letters by:\n");//the console asks the user to input a key
     fscanf(task1, "%d", &rotnKey);//the user inputs a key
-    fprintf(task1, "The encrypted message is: \n");
+    printf("The encrypted message is: \n");
     
     //the following for loop takes the message input by the user and reads it one character at a time until the terminating character '\0' is reached:
     for(message[index]; message[index] != '\0'; index ++)
     {
-        if(message[index] < 65 || message[index] > 90)
-        { 
-            
+        if(message[index] < 65 || message[index] > 90) 
+        
             /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
             no encryption will take place*/ 
             
-            fprintf(task1, "%c", message[index]);//the character entered by the user is printed unchanged
-        } 
+            return message[index];//the character entered by the user is printed unchanged
+        
         else if(message[index] >= 65 || message[index] <= 90)
         {
             /*if the ASCII character entered does have a corresponding integer within the range assigned to capital letters,
@@ -118,10 +144,9 @@ char rotnEncryption(void)
             The integer values are shifted by the key entered by the user then the modulus (remainder) is taken. 65 is added to bring the integers back to the range of ASCII characters
             corresponding to capital letters*/
             
-            fprintf(task1, "%c", encryptedletter);//each character of the encrypted message is printed
+            return encryptedletter;//each character of the encrypted message is printed
         }
     } 
-    return 0;
 }    
 
 //Task 2 (rotation decription) function definition:
@@ -133,12 +158,14 @@ char rotnDecryption(void)
     int index = 0;
     char decryptedletter; // the corresponding ASCII letter after rotation encryption calculation
     
+    FILE *task2;
+    task2 = fopen("task1.txt", "r");
         
     printf("Enter an encrypted message to decrypt (in capital letters):\n");//the console tells the user to input an encrypted message
-    scanf("%[^\n]", rotnmessage);//the user inputs the encrypted message
+    fscanf(task2, "%[^\n]", rotnmessage);//the user inputs the encrypted message
     
     printf("Please enter the key (a number from 1 to 25) that the letters have been shifted by:\n");//the console asks the user to input a key
-    scanf("%d", &rotnKey);//the user inputs the key
+    fscanf(task2, "%d", &rotnKey);//the user inputs the key
     printf("The decrypted message is:\n");
     
     //for loop that takes the encrypted message input by the user and reads it one character at a time until the terminating character '\0' is reached:
@@ -150,7 +177,7 @@ char rotnDecryption(void)
             /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
             no decryption will take place*/ 
             
-            printf("%c", rotnmessage[index]);//the character entered by the user is printed unchanged
+            return rotnmessage[index];//the character entered by the user is printed unchanged
         } 
         else if(rotnmessage[index] >= 65 || rotnmessage[index] <= 90)
         {
@@ -170,10 +197,9 @@ char rotnDecryption(void)
             in this position have 26 added after the calculation to ensure they remain in the range (the rotation decryption 'wraps' around the
             alphabet)*/
             
-            printf("%c", decryptedletter);//each decrypted character is printed to the console
+            return decryptedletter;//each decrypted character is printed to the console
         }
     }  
-    return 0;
 }    
 
 //Task 3 (substitution encryption) function definition:
@@ -187,8 +213,11 @@ char subnEncryption(void)
     int index = 0;//integer value that will act as a counter for each character in the message entered by the user
     char encryptedletter;//new character printed after encryption
 
+    FILE *task3;
+    task3 = fopen("task1.txt", "r");
+
     printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution key
-    scanf("%s", subalphabet);//user inputs a substitution key
+    fscanf(task3, "%s", subalphabet);//user inputs a substitution key
     
     //subalphabet[subindex];//declaration that subindex is the 'counter' for subalphabet
     
@@ -210,7 +239,7 @@ char subnEncryption(void)
    //if the user correctly enters 26 capital letters for the key, the program continues
    
     printf("\nPlease enter a message to encrypt:"); //console asks the user to enter a message to encrypt
-    scanf("\n%[^\n]", message);//user inputs a message to encrypt
+    fscanf(task3, "\n%[^\n]", message);//user inputs a message to encrypt
     
     printf("The encrypted message is: \n");//the encrypted message is printed after this
     
@@ -218,7 +247,7 @@ char subnEncryption(void)
     for(message[index]; message[index] != '\0'; index ++)
     {
         if(message[index] < 65 || message[index] > 90)
-        printf("%c", message[index]);//characters outside the ASCII integer range of capital letters are not encrypted
+        return message[index];//characters outside the ASCII integer range of capital letters are not encrypted
                                     
         else if(message[index] >= 65 || message[index] <= 90)//characters in the range of capital letters are encrypted
         {
@@ -227,10 +256,9 @@ char subnEncryption(void)
             This integer value is assigned to subindex (the counter for the substitution alphabet)*/
             encryptedletter = subalphabet[subindex];
             /*The character of subalphabet corresponding to the 'counter' subindex is assigned to the encrypted letter*/
-            printf("%c", encryptedletter);//the encrypted letter is printed to the console
+            return encryptedletter;//the encrypted letter is printed to the console
         }//this process continues for each character in the message entered by the user until the termintating character is reached
     }
-    return 0;
 }
 
 //Task 4 (substitution decryption) function decryption:
@@ -243,8 +271,12 @@ char subnDecryption(void)
     int subindex = 0;//A counter for each character of the encrypted message, used in the for loop
     char decryptedletter;//The decrypted character determined after substitution decryption
 
-    printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution key
-    scanf("%s", subalphabet);//user inputs a substitution key
+    FILE *task4;
+    task4 = fopen("task1.txt", "r");
+
+    printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution keyprintf("\nPlease enter a message to encrypt:"); //console asks the user to enter a message to encrypt
+    printf("\nPlease enter a message to encrypt:"); //console asks the user to enter a message to encrypt
+    fscanf(task4, "%s", subalphabet);//user inputs a substitution key
     
     //subalphabet[subindex];
     
@@ -266,14 +298,14 @@ char subnDecryption(void)
    //if the user correctly enters 26 capital letters for the key, the program continues
    
     printf("\nPlease enter a message to decrypt:"); //console asks the user to enter a message to decrypt
-    scanf("\n%[^\n]", submessage);//user inputs a message to decrypt
+    fscanf(task4, "\n%[^\n]", submessage);//user inputs a message to decrypt
     
     printf("The decrypted message is: \n");//the decrypted message will be printed after this
     
     for(submessage[subindex]; submessage[subindex] != '\0'; subindex ++)
     {
         if(submessage[subindex] < 65 || submessage[subindex] > 90)
-        printf("%c", submessage[subindex]);
+        return submessage[subindex];
         /*Characters outside the range of capital letters are printed unchanged
         (no decryption necessary)*/
         
@@ -284,14 +316,13 @@ char subnDecryption(void)
             /*The character of the ordered alphabet corresponding to the 
             oucounter subindex is assigned to be the decrypted character*/
             
-            printf("%c", decryptedletter);//The decrypted character is printed to the console
+            return decryptedletter;//The decrypted character is printed to the console
         }
         /*This process continues through all the characters of the encrypted message until
         the terminating character '\0' is reached and the full decrypted message has been 
         printed to the console.*/
     }
-    return 0;
-}
+} 
 
 //Task 5:Decryption with a substitution cipher given cipher text and key
 /*File *stream;
@@ -299,7 +330,68 @@ while (!feof(stream))
 {
     //read from file
     //do stuff
-}*/
+
+char rotnDecryption(void)
+{
+    char rotnmessage[1024]; //the encrypted message entered by the user
+    int rotnKey;//the key of encryption (the known number of characters the rotation cipher has been shifted by)
+    int index = 0;
+    char decryptedletter; // the corresponding ASCII letter after rotation encryption calculation
+    
+    FILE *task5;
+    task5 = fopen("task1.txt", "r");
+    
+    printf("Enter an encrypted message to decrypt (in capital letters):\n");//the console tells the user to input an encrypted message
+    fscanf(task5, "%[^\n]", rotnmessage);//the user inputs the encrypted message
+    
+    //Figuring out the key:
+//Method 1: Frequency of the letter 'e' (then t,a,o,i,n,,s,h,r,d,l,u...)
+    //Assume most frequent character is 'e', then determine the shift from there.
+//Method 2: Try all 26 possible rotations (brute force)
+    //Method 2.5: Each word contains a vowel (or 'y') which narrows it down...
+//Method 3: One letter word must be 'I' or 'a'
+//Method 4: Known plaintext attack 
+    //Using dictionary containting known words
+
+
+    printf("The decrypted message is:\n");
+    
+    //for loop that takes the encrypted message input by the user and reads it one character at a time until the terminating character '\0' is reached:
+    for(rotnmessage[index]; rotnmessage[index] != '\0'; index ++)
+    {
+        if(rotnmessage[index] < 65 || rotnmessage[index] > 90)
+        { 
+            
+            /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
+            no decryption will take place*/ 
+           
+            //return rotnmessage[index];//the character entered by the user is printed unchanged
+      /*  } 
+        else if(rotnmessage[index] >= 65 || rotnmessage[index] <= 90)
+        {
+            /*if the ASCII character entered does have a corresponding integer within the range assigned to capital letters,
+            the character will be decrypted according to the shift entered by the user*/
+            
+           // decryptedletter = (rotnmessage[index] - 65 - rotnKey)%26 + 65;
+            
+            /*65 is subtracted from the assigned integer for each ASCII character to convert it to the form A=0, B=1, C=2 and so on.
+            The integer values are shifted back by the key of encryption given by the user then the modulus (remainder) is taken.
+            65 is added to bring the integers back to the range of ASCII characters corresponding to capital letters*/
+            
+            //if(decryptedletter < 65)
+              //  decryptedletter = decryptedletter + 26;
+            /*if the character being decrypted holds a position in the alphabet of lower value than the selected key, the calculation
+            will result in the decrypted character being outside (less than) the range of the capital letters. To resolve this, characters
+            in this position have 26 added after the calculation to ensure they remain in the range (the rotation decryption 'wraps' around the
+            alphabet)*/
+            
+            //return decryptedletter;//each decrypted character is printed to the console
+       // }
+   // }   
+//}    
+
+
+//}
 
 /*
 Task 2: Decryption with a rotation cipher given cipher text and key
@@ -316,5 +408,6 @@ Task 7: Decryption of an unseen block of cipher text on marking day
 
 
  */
+
 
 
