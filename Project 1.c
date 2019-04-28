@@ -13,11 +13,11 @@ int main()
 {
 //int taskNumber; // The variable containing the task number selected by the user
     
-    FILE *menusystem; // Declaration of file for user's selection of task
+    FILE *taskSelection; // Declaration of file for user's selection of task
     
     /*Print a user friendly message if their is an error opening the file.
     This avoids a segmentation fault occurring in attempting to access a NULL stream.
-    if(menusystem == NULL)
+    if(taskSelection == NULL)
     {
     perror("fopen()");
     return;
@@ -34,36 +34,32 @@ int main()
     printf("    (7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n\n");
     
     /*Prompt the user to select a task*/
-    printf("Please select a task (1, 2, 3, 4, 5, 6 or 7). Please enter your selection into 'menusystemfile.txt'.\n");  
+    printf("Please select a task (1, 2, 3, 4, 5, 6 or 7). Please enter your selection into 'menusystemfile.txt'.\n\n");  
 
     /*Open a file for the user to input selection*/
-    menusystem = fopen("menusystemfile.txt", "r");
+    taskSelection = fopen("taskSelection.txt", "r");
     int taskNumber;
     
     /*Check file has opened correctly*/
-   /*Print a user friendly message if their is an error opening the file.
+    /*Print a user friendly message if their is an error opening the file.
     This avoids a segmentation fault occurring in attempting to access a NULL stream.
-    if(menusystem == NULL)
+    if(taskSelection == NULL)
     {
     perror("fopen()");
     return;
     }*/
    
     /*User inputs their selection*/
-  // while (getchar() != '\n');
- // fflush(stdin);
-    fscanf(menusystem, "%d", &taskNumber);
-    //printf("%d", taskNumber);
-    /*printf("You selected task %d.\n", taskNumber);
+    fscanf(taskSelection, "%d", &taskNumber);
   
     //If the user selects an invalid task, they are prompted to select again
-    if(taskNumber < 1 || taskNumber > 7)
+    /*if(taskNumber < 1 || taskNumber > 7)
     {
         printf("Unknown option %d.\nPlease select a task (1, 2, 3, 4, 5, 6 or 7). Please enter your selection into 'menusystemfile.txt: ", taskNumber);
         
-        fscanf(menusystem, "%d", &taskNumber);//Reads the user's input again
-        printf("\nYou selected task %d.\n", taskNumber);
+        fscanf(taskSelection, "%d", &taskNumber);//Reads the user's input again
     }*/
+
 
     switch(taskNumber)
     {
@@ -94,6 +90,8 @@ int main()
             break;
     
     }
+    
+    fclose(taskSelection);
 
 }
     
@@ -104,24 +102,45 @@ int main()
 char rotnEncryption(void)
 {
     char message[1024]; //the message entered by the user
-    int rotnKey;//the key of encryption (the number of letters the unser decides to shift by)
+    //int rotnKey;//the key of encryption (the number of letters the unser decides to shift by)
     int index = 0;
     char encryptedletter; // the corresponding ASCII letter after rotation encryption calculation
     
-    FILE *task1;
-    task1 = fopen("task1.txt", "r");
+    FILE *enterMessage, *enterRotnKey;
     
-    if(task1 == NULL)
+    printf("\n\nEnter a message to encrypt (in capital letters) into the file 'message.txt'.\n");//the console tells the user to input a message
+  
+    enterMessage = fopen("enterMessage.txt", "r");
+    
+    /*if(enterMessage == NULL)
     {
         perror("fopen()");
         return;
-    }
+    }*/
+   
+    //char message[1024]; //the message entered by the user
+   
+    fscanf(enterMessage, "%[^\n]", message);//the user inputs a message
     
-    printf("Enter a message to encrypt (in capital letters):\n");//the console tells the user to input a message
-    fscanf(task1, "%[^\n]", message);//the user inputs a message
+    //fclose(enterMessage);
     
-    fscanf(task1, "%d", &rotnKey);//the user inputs a key
-    printf("The encrypted message is: \n");
+    printf("\nThe message entered was:\n\n%s\n\n", message);
+
+    printf(" Enter a key of rotation into the file 'enterRotnKey.txt'.\n\n");
+     
+    //fclose(enterMessage);
+     
+    enterRotnKey = fopen("enterRotnKey.txt", "r");
+    
+    int rotnKey;//the key of encryption (the number of letters the unser decides to shift by)
+    
+    fscanf(enterRotnKey, "%d", &rotnKey);//the user inputs a key
+
+    //fclose(enterRotnKey);
+
+    printf("The key entered was %d.\n\n", rotnKey);
+    
+    printf("The encrypted message is: \n\n");
     
     //the following for loop takes the message input by the user and reads it one character at a time until the terminating character '\0' is reached:
     for(message[index]; message[index] != '\0'; index ++)
@@ -131,7 +150,7 @@ char rotnEncryption(void)
             /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
             no encryption will take place*/ 
             
-            return message[index];//the character entered by the user is printed unchanged
+             printf("%c", message[index]);//the character entered by the user is printed unchanged
         
         else if(message[index] >= 65 || message[index] <= 90)
         {
@@ -144,7 +163,7 @@ char rotnEncryption(void)
             The integer values are shifted by the key entered by the user then the modulus (remainder) is taken. 65 is added to bring the integers back to the range of ASCII characters
             corresponding to capital letters*/
             
-            return encryptedletter;//each character of the encrypted message is printed
+            printf("%c", encryptedletter);//each character of the encrypted message is printed
         }
     } 
 }    
@@ -158,15 +177,25 @@ char rotnDecryption(void)
     int index = 0;
     char decryptedletter; // the corresponding ASCII letter after rotation encryption calculation
     
-    FILE *task2;
-    task2 = fopen("task1.txt", "r");
+    FILE *enterMessage, *enterRotnKey;
         
-    printf("Enter an encrypted message to decrypt (in capital letters):\n");//the console tells the user to input an encrypted message
-    fscanf(task2, "%[^\n]", rotnmessage);//the user inputs the encrypted message
+    printf(" Enter an encrypted message to decrypt (in capital letters):\n\n");//the console tells the user to input an encrypted message
+   
+   enterMessage = fopen("enterMessage.txt", "r");
+   
+   fscanf(enterMessage, "%[^\n]", rotnmessage);//the user inputs the encrypted message
     
-    printf("Please enter the key (a number from 1 to 25) that the letters have been shifted by:\n");//the console asks the user to input a key
-    fscanf(task2, "%d", &rotnKey);//the user inputs the key
-    printf("The decrypted message is:\n");
+    printf("The encrypted message entered was:\n\n%s\n\n", rotnmessage);
+    
+    printf("Please enter the key (a number from 1 to 25) that the letters have been shifted by:\n\n");//the console asks the user to input a key
+    
+    enterRotnKey = fopen("enterRotnKey.txt", "r");
+    
+    fscanf(enterRotnKey, "%d", &rotnKey);//the user inputs the key
+    
+    printf("The key entered was %d.\n\n", rotnKey);
+   
+   printf("The decrypted message is:\n\n");
     
     //for loop that takes the encrypted message input by the user and reads it one character at a time until the terminating character '\0' is reached:
     for(rotnmessage[index]; rotnmessage[index] != '\0'; index ++)
@@ -177,7 +206,7 @@ char rotnDecryption(void)
             /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
             no decryption will take place*/ 
             
-            return rotnmessage[index];//the character entered by the user is printed unchanged
+             printf("%c", rotnmessage[index]);//the character entered by the user is printed unchanged
         } 
         else if(rotnmessage[index] >= 65 || rotnmessage[index] <= 90)
         {
@@ -197,7 +226,7 @@ char rotnDecryption(void)
             in this position have 26 added after the calculation to ensure they remain in the range (the rotation decryption 'wraps' around the
             alphabet)*/
             
-            return decryptedletter;//each decrypted character is printed to the console
+            printf("%c", decryptedletter);//each decrypted character is printed to the console
         }
     }  
 }    
@@ -362,15 +391,15 @@ char rotnDecryption(void)
         if(rotnmessage[index] < 65 || rotnmessage[index] > 90)
         { 
             
-            /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
-            no decryption will take place*/ 
+            if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
+            no decryption will take place 
            
             //return rotnmessage[index];//the character entered by the user is printed unchanged
       /*  } 
         else if(rotnmessage[index] >= 65 || rotnmessage[index] <= 90)
         {
-            /*if the ASCII character entered does have a corresponding integer within the range assigned to capital letters,
-            the character will be decrypted according to the shift entered by the user*/
+            if the ASCII character entered does have a corresponding integer within the range assigned to capital letters,
+            the character will be decrypted according to the shift entered by the user
             
            // decryptedletter = (rotnmessage[index] - 65 - rotnKey)%26 + 65;
             
