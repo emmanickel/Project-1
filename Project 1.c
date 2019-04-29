@@ -34,7 +34,7 @@ int main()
     printf("    (7) Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher\n\n");
     
     /*Prompt the user to select a task*/
-    printf("Please select a task (1, 2, 3, 4, 5, 6 or 7). Please enter your selection into 'menusystemfile.txt'.\n\n");  
+    printf("Please select a task (1, 2, 3, 4, 5, 6 or 7) and enter your selection into 'menusystemfile.txt'.\n\n");  
 
     /*Open a file for the user to input selection*/
     taskSelection = fopen("taskSelection.txt", "r");
@@ -244,7 +244,7 @@ char subnEncryption(void)
 
     FILE *enterSubnKey, *enterMessage;
 
-    printf("\n\nPlease enter a substitution (26 capital letters) into the file 'enterSubnKey'.\n\n"); //console asks user to enter substitution key
+    printf("\n\nPlease enter a substitution (26 capital letters) into the file 'enterSubnKey.txt'.\n\n"); //console asks user to enter substitution key
     
     enterSubnKey = fopen("enterSubnKey.txt", "r");
     
@@ -309,12 +309,14 @@ char subnDecryption(void)
     int subindex = 0;//A counter for each character of the encrypted message, used in the for loop
     char decryptedletter;//The decrypted character determined after substitution decryption
 
-    FILE *task4;
-    task4 = fopen("task1.txt", "r");
+    FILE *enterSubnKey, *enterMessage;
 
-    printf("Please enter a substitution (26 capital letters):\n"); //console asks user to enter substitution keyprintf("\nPlease enter a message to encrypt:"); //console asks the user to enter a message to encrypt
-    printf("\nPlease enter a message to encrypt:"); //console asks the user to enter a message to encrypt
-    fscanf(task4, "%s", subalphabet);//user inputs a substitution key
+    printf("\n\nPlease enter a substitution (26 capital letters) into the file 'enterSubnKey.txt'.\n\n"); //console asks user to enter substitution keyprintf("\nPlease enter a message to encrypt:"); //console asks the user to enter a message to encrypt
+   
+    enterSubnKey = fopen("enterSubnKey.txt", "r");
+   
+   fscanf(enterSubnKey, "%s", subalphabet);
+   
     
     //subalphabet[subindex];
     
@@ -335,15 +337,24 @@ char subnDecryption(void)
    
    //if the user correctly enters 26 capital letters for the key, the program continues
    
-    printf("\nPlease enter a message to decrypt:"); //console asks the user to enter a message to decrypt
-    fscanf(task4, "\n%[^\n]", submessage);//user inputs a message to decrypt
+     printf("The substitution key entered was:\n\n%s\n\n", subalphabet);
+   
+   printf("Please enter a message to decrypt into the file 'enterMessage.txt'.\n\n"); //console asks the user to enter a message to encrypt
     
-    printf("The decrypted message is: \n");//the decrypted message will be printed after this
+    //console asks the user to enter a message to decrypt
+    
+    enterMessage = fopen("enterMessage.txt", "r");
+    
+    fscanf(enterMessage, "%[^\n]", submessage);//user inputs a substitution key
+    
+    printf("The message entered was:\n\n%s\n\n", submessage);
+   
+    printf("The decrypted message is:\n\n");//the decrypted message will be printed after thi
     
     for(submessage[subindex]; submessage[subindex] != '\0'; subindex ++)
     {
         if(submessage[subindex] < 65 || submessage[subindex] > 90)
-        return submessage[subindex];
+        printf("%c", submessage[subindex]);
         /*Characters outside the range of capital letters are printed unchanged
         (no decryption necessary)*/
         
@@ -354,7 +365,7 @@ char subnDecryption(void)
             /*The character of the ordered alphabet corresponding to the 
             oucounter subindex is assigned to be the decrypted character*/
             
-            return decryptedletter;//The decrypted character is printed to the console
+            printf("%c", decryptedletter);//The decrypted character is printed to the console
         }
         /*This process continues through all the characters of the encrypted message until
         the terminating character '\0' is reached and the full decrypted message has been 
