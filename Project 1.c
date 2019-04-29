@@ -126,7 +126,7 @@ char rotnEncryption(void)
     
     printf("\nThe message entered was:\n\n%s\n\n", message);
 
-    printf(" Enter a key of rotation into the file 'enterRotnKey.txt'.\n\n");
+    printf("Enter a key of rotation into the file 'enterRotnKey.txt'.\n\n");
      
     //fclose(enterMessage);
      
@@ -145,7 +145,8 @@ char rotnEncryption(void)
     //the following for loop takes the message input by the user and reads it one character at a time until the terminating character '\0' is reached:
     for(message[index]; message[index] != '\0'; index ++)
     {
-        if(message[index] < 65 || message[index] > 90) 
+            
+        if(message[index] < 65 || message[index] > 90 && message[index] < 97 || message[index] > 122) 
         
             /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
             no encryption will take place*/ 
@@ -154,6 +155,8 @@ char rotnEncryption(void)
         
         else if(message[index] >= 65 || message[index] <= 90)
         {
+             if(message[index] > 96 && message[index] < 123)
+                 message[index] = message[index] - 32;
             /*if the ASCII character entered does have a corresponding integer within the range assigned to capital letters,
             the character will be encrypted according to the shift entered by the user*/
             
@@ -179,7 +182,7 @@ char rotnDecryption(void)
     
     FILE *enterMessage, *enterRotnKey;
         
-    printf(" Enter an encrypted message to decrypt (in capital letters) into the file 'enterMessage.txt'.\n\n");//the console tells the user to input an encrypted message
+    printf("\n\nEnter an encrypted message to decrypt (in capital letters) into the file 'enterMessage.txt'.\n\n");//the console tells the user to input an encrypted message
    
    enterMessage = fopen("enterMessage.txt", "r");
    
@@ -200,8 +203,8 @@ char rotnDecryption(void)
     //for loop that takes the encrypted message input by the user and reads it one character at a time until the terminating character '\0' is reached:
     for(rotnmessage[index]; rotnmessage[index] != '\0'; index ++)
     {
-        if(rotnmessage[index] < 65 || rotnmessage[index] > 90)
-        { 
+        if(rotnmessage[index] < 65 || rotnmessage[index] > 90 && rotnmessage[index] < 97 || rotnmessage[index] > 122) 
+         { 
             
             /*if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
             no decryption will take place*/ 
@@ -210,6 +213,8 @@ char rotnDecryption(void)
         } 
         else if(rotnmessage[index] >= 65 || rotnmessage[index] <= 90)
         {
+            if(rotnmessage[index] > 96 && rotnmessage[index] < 123)
+                 rotnmessage[index] = rotnmessage[index] - 32;
             /*if the ASCII character entered does have a corresponding integer within the range assigned to capital letters,
             the character will be decrypted according to the shift entered by the user*/
             
@@ -284,12 +289,17 @@ char subnEncryption(void)
     //encryption:
     for(message[index]; message[index] != '\0'; index ++)
     {
-        if(message[index] < 65 || message[index] > 90)
-        printf("%c", message[index]);//characters outside the ASCII integer range of capital letters are not encrypted
+        if(message[index] < 65 || message[index] > 90 && message[index] < 97 || message[index] > 122) 
+         printf("%c", message[index]);//characters outside the ASCII integer range of capital letters are not encrypted
                                     
         else if(message[index] >= 65 || message[index] <= 90)//characters in the range of capital letters are encrypted
         {
-            subindex = message[index] - 65;
+           
+           if(message[index] > 96 && message[index] < 123)
+                 message[index] = message[index] - 32;
+            
+           
+           subindex = message[index] - 65;
             /*65 is substracted from the first character in the message to bring it back to the form A=0, B=1, C=2 and so on.
             This integer value is assigned to subindex (the counter for the substitution alphabet)*/
             encryptedletter = subalphabet[subindex];
@@ -353,7 +363,7 @@ char subnDecryption(void)
     
     for(submessage[subindex]; submessage[subindex] != '\0'; subindex ++)
     {
-        if(submessage[subindex] < 65 || submessage[subindex] > 90)
+         if(submessage[subindex] < 65 || submessage[subindex] > 90 && submessage[subindex] < 97 || submessage[subindex] > 122) 
         printf("%c", submessage[subindex]);
         /*Characters outside the range of capital letters are printed unchanged
         (no decryption necessary)*/
@@ -361,6 +371,9 @@ char subnDecryption(void)
         else if(submessage[subindex] >= 65 || submessage[subindex] <= 90)
         /*characters within the range of capital letters require decryption*/
         {
+            if(submessage[subindex] > 96 && submessage[subindex] < 123)
+    submessage[subindex] = submessage[subindex] - 32;
+           
             decryptedletter = alphabet[subindex];
             /*The character of the ordered alphabet corresponding to the 
             oucounter subindex is assigned to be the decrypted character*/
