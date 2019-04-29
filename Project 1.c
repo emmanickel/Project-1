@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define ASCII_SIZE 256 
 
 //function prototypes:
 
@@ -8,6 +9,7 @@ void rotnEncryption(void);//Prototype for function called in task 1 for rotation
 void rotnDecryption(void);//Prototype for function called in task 2 for rotation decryption
 void subnEncryption(void);//Prototype for function called in task 3 for substitution encryption
 void subnDecryption(void);//Prototype for function called in task 4 for substitution decryption
+void rotnUnseenDecryption(void); // Prototype for function called in task for unseen rotation decryption 
 
 int main()
 {
@@ -68,6 +70,7 @@ int main()
             break;
         case(5):
             printf("You have selected task (5).");
+            rotnUnseenDecryption();
             break;
         case(6):
             printf("You have selected task (6).");
@@ -266,6 +269,7 @@ void subnEncryption(void)
     int index = 0; //integer value that will act as a counter for each character in the message entered by the user
     int subindex; // Integer value that will act as a counter for each character of the encrypted message
     char encryptedletter; // Encrypted character printed after the encryption calculation
+    int x = 0; // Integer value that acts as a counter for the substitution key, subalphabet
 
     /*Declaration of files to be used in this function*/
     FILE *enterSubnKey, *enterMessage;
@@ -282,23 +286,27 @@ void subnEncryption(void)
     /*Print key entered by user to stdout*/
     printf("The substitution key entered was:\n\n%s\n\n", subalphabet);
       
-   //this set of if, else if statements ensures that the user enters a valid key (26 letters)
-   /*if(subindex < 26 || subindex > 26)
-   {
-            printf("Error: too few or too many letters were entered. Please enter a substitution (26 capital letters):\n");//console asks user to enter substitution key
-            scanf("%s", subalphabet);//user inputs a substitution key
-   }
-   if(subalphabet[index] < 65 || subalphabet[index] > 90)
-   {
-            printf("Error: the characters entered were not within the range of capital letters (A to Z). Please enter a substitution (26 capital letters):\n");
-            //console asks user to enter substitution key
-            scanf("%s", subalphabet);//user inputs a substitution key
-   }
-   else 
-        continue;*/
+    /*Ensure that the user enters a valid key (26 letters)*/
     
-    //if the user correctly enters 26 capital letters for the key, the program continues
-   
+    for(subalphabet[x]; x < 27; x ++) // For loop reads the substitution key one character at a time
+    {
+        if(subalphabet[x] < 65) // Checks all letters entered where capital letters
+        { 
+            printf("Error: The key entered was invalid. Please enter a substitution (26 capital letters):\n\n");
+            fscanf(enterSubnKey, "%s", subalphabet);
+        }
+    }
+    
+    if(strlen(subalphabet) < 26 || strlen(subalphabet) > 26)
+    {
+        /*User prompted to enter a valid key*/
+        printf("Error: The key entered was invalid. Please enter a substitution (26 capital letters):\n\n");
+        /*New key read from file*/
+        fscanf(enterSubnKey, "%s", subalphabet);
+    }
+    
+    /*If the user correctly enters 26 capital letters for the key, the program continues*/
+     
     /*Prompt user to enter a message to be encrypted into a file*/
     printf("Please enter a message to encrypt into the file 'enterMessage.txt'.\n\n"); //console asks the user to enter a message to encrypt
     
@@ -358,6 +366,7 @@ void subnDecryption(void)
     char submessage[1024]; // The encrypted message entered by the user
     int subindex = 0; // An integer value that acts as a counter of the encrypted message (used in the for loop)
     char decryptedletter; // The decrypted character determined after the substitution decryption calculation
+    int x; // Integer value that acts as a counter for subalphabet (the substitution key)
 
     /*Declaration of files used in this function*/
     FILE *enterSubnKey, *enterMessage;
@@ -371,22 +380,26 @@ void subnDecryption(void)
     /*Read user input from file*/
     fscanf(enterSubnKey, "%s", subalphabet);
     
-   //this set of if, else if statements ensures that the user enters a valid key (26 letters)
-   /*if(subindex < 26 || subindex > 26)
-   {
-            printf("Error: too few or too many letters were entered. Please enter a substitution (26 capital letters):\n");//console asks user to enter substitution key
-            scanf("%s", subalphabet);//user inputs a substitution key
-   }
-   if(subalphabet[index] < 65 || subalphabet[index] > 90)
-   {
-            printf("Error: the characters entered were not within the range of capital letters (A to Z). Please enter a substitution (26 capital letters):\n");
-            //console asks user to enter substitution key
-            scanf("%s", subalphabet);//user inputs a substitution key
-   }
-   else 
-        continue;*/
-   
-   //if the user correctly enters 26 capital letters for the key, the program continues
+    /*Ensure that the user enters a valid key (26 letters)*/
+    
+    for(subalphabet[x]; x < 27; x ++) // For loop reads the substitution key one character at a time
+    {
+        if(subalphabet[x] < 65) // Checks all letters entered where capital letters
+        { 
+            printf("Error: The key entered was invalid. Please enter a substitution (26 capital letters):\n\n");
+            fscanf(enterSubnKey, "%s", subalphabet);
+        }
+    }
+    
+    if(strlen(subalphabet) < 26 || strlen(subalphabet) > 26)
+    {
+        /*User prompted to enter a valid key*/
+        printf("Error: The key entered was invalid. Please enter a substitution (26 capital letters):\n\n");
+        /*New key read from file*/
+        fscanf(enterSubnKey, "%s", subalphabet);
+    }
+    
+    /*If the user correctly enters 26 capital letters for the key, the program continues*/
    
     /*Print the key entered by the user to stdout*/
     printf("The substitution key entered was:\n\n%s\n\n", subalphabet);
@@ -429,26 +442,53 @@ void subnDecryption(void)
     }
 } 
 
-//Task 5:Decryption with a substitution cipher given cipher text and key
-/*File *stream;
-while (!feof(stream))
-{
-    //read from file
-    //do stuff
+//Task 5: Decryption of a previously unseen cipher text encrypted with a rotation cipher
 
-char rotnDecryption(void)
+void rotnUnseenDecryption(void)
 {
     char rotnmessage[1024]; //the encrypted message entered by the user
     int rotnKey;//the key of encryption (the known number of characters the rotation cipher has been shifted by)
     int index = 0;
+    int x = 0;
     char decryptedletter; // the corresponding ASCII letter after rotation encryption calculation
+    int count[ASCII_SIZE] = {0};
+    int maximumCount = 0; // An integer value, initialises the maximum number of times a character may appear
+    char result;
     
-    FILE *task5;
-    task5 = fopen("task1.txt", "r");
+    /*Declare all files to be used in this function*/
+    FILE *enterMessage;
+   
+    /*Prompt user to enter an encrypted message*/
+    printf("\n\nEnter an encrypted message to decrypt (in capital letters) into the file 'enterMessage.txt'.\n\n");
     
-    printf("Enter an encrypted message to decrypt (in capital letters):\n");//the console tells the user to input an encrypted message
-    fscanf(task5, "%[^\n]", rotnmessage);//the user inputs the encrypted message
+    /*File opens for user to input message*/
+    enterMessage = fopen("enterMessage.txt", "r");
     
+    /*Read encrypted message entered by user to file*/
+    fscanf(enterMessage, "%[^\n]", rotnmessage);
+    
+    /*Print message entered by user to stdout*/
+    printf("The message entered was:\n\n%s\n\n", rotnmessage);
+    
+    for(rotnmessage[x]; rotnmessage[x] != '\0'; x ++)
+    {
+        count[rotnmessage[x]]++; 
+            if (maximumCount < count[rotnmessage[x]])
+            { 
+                maximumCount = count[rotnmessage[x]]; 
+                result = rotnmessage[x]; 
+                
+            }
+    }
+                printf("%c\n\n", maximumCount);
+                
+                //maximumCount = E
+                
+                rotnKey = maximumCount - 69;
+                
+                printf("%d\n\n", rotnKey);
+                
+
     //Figuring out the key:
 //Method 1: Frequency of the letter 'e' (then t,a,o,i,n,,s,h,r,d,l,u...)
     //Assume most frequent character is 'e', then determine the shift from there.
@@ -459,44 +499,46 @@ char rotnDecryption(void)
     //Using dictionary containing known words
 
 
-    printf("The decrypted message is:\n");
+  printf("The decrypted message is:\n\n");
     
-    //for loop that takes the encrypted message input by the user and reads it one character at a time until the terminating character '\0' is reached:
+ /*The for loop below that takes the encrypted message entered by the user and reads it one character at a time until
+    the terminating character '\0' is reached*/
     for(rotnmessage[index]; rotnmessage[index] != '\0'; index ++)
     {
-        if(rotnmessage[index] < 65 || rotnmessage[index] > 90)
-        { 
+        if(rotnmessage[index] < 65 || (rotnmessage[index] > 90 && rotnmessage[index] < 97) || rotnmessage[index] > 122) 
+         { 
             
-            if the ASCII character entered does not have a corresponding integer within the range assigned to capital letters,
-            no decryption will take place 
-           
-            //return rotnmessage[index];//the character entered by the user is printed unchanged
-      /*  } 
+            /*if the ASCII character entered does not have a corresponding integer within the range assigned to letters,
+            no decryption will take place*/ 
+            
+            printf("%c", rotnmessage[index]);//the character entered by the user is printed unchanged
+        } 
         else if(rotnmessage[index] >= 65 || rotnmessage[index] <= 90)
         {
-            if the ASCII character entered does have a corresponding integer within the range assigned to capital letters,
-            the character will be decrypted according to the shift entered by the user
+            /*If the ASCII character entered does have a corresponding integer within the range assigned letters (both lowercase
+            and capital), the letter is firstly converted into a capital if it is not already one*/
+            if(rotnmessage[index] > 96 && rotnmessage[index] < 123)
+                 rotnmessage[index] = rotnmessage[index] - 32;
+           
+            /*The characters of the encrypted message now within the ASCII range of capital letters are decrypted by the calculation below*/
+            decryptedletter = (rotnmessage[index] - 65 - rotnKey)%26 + 65;
+            /*Explanation of calculation: 65 is subtracted from the assigned integer for each ASCII character to convert it to the form A=0, B=1, C=2 and so on.
+            The integer values are shifted back by the key of decryption given by the user. The modulus (remainder) when this value is
+            divided by 26 is then taken. 65 is added to bring the integers back to the range of ASCII characters corresponding to capital
+            letters*/
             
-           // decryptedletter = (rotnmessage[index] - 65 - rotnKey)%26 + 65;
-            
-            /*65 is subtracted from the assigned integer for each ASCII character to convert it to the form A=0, B=1, C=2 and so on.
-            The integer values are shifted back by the key of encryption given by the user then the modulus (remainder) is taken.
-            65 is added to bring the integers back to the range of ASCII characters corresponding to capital letters*/
-            
-            //if(decryptedletter < 65)
-              //  decryptedletter = decryptedletter + 26;
+            if(decryptedletter < 65)
+                decryptedletter = decryptedletter + 26;
             /*if the character being decrypted holds a position in the alphabet of lower value than the selected key, the calculation
             will result in the decrypted character being outside (less than) the range of the capital letters. To resolve this, characters
             in this position have 26 added after the calculation to ensure they remain in the range (the rotation decryption 'wraps' around the
             alphabet)*/
             
-            //return decryptedletter;//each decrypted character is printed to the console
-       // }
-   // }   
-//}    
+            printf("%c", decryptedletter);// Each decrypted character is printed to the console one at time
+        }
+    }  
+}    
 
-
-//}
 
 /*
 
